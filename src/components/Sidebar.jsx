@@ -34,21 +34,31 @@ function Sidebar() {
   }, [isDark]);
 
   return (
-    <Box sx={{ p: 3 }}>
-      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-        <Typography
-          variant="h6"
-          component="div"
-          gutterBottom
-          sx={{ display: 'inline-flex', alignItems: 'center', color: 'var(--color-text)' }}
+    <Box sx={{ p: 3, backgroundColor: 'var(--sidebar-bg)', minHeight: '100%', borderRight: '1px solid var(--border-default)' }}>
+      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 3, gap: 1 }}>
+        <Box>
+          <Typography
+            variant="h6"
+            component="div"
+            gutterBottom
+            sx={{ fontWeight: 700, color: 'var(--text-primary)' }}
+          >
+            HR Job Portal
+          </Typography>
+          <Typography variant="body2" sx={{ color: 'var(--text-secondary)' }}>
+            Tablero / Vacantes / Candidatos
+          </Typography>
+        </Box>
+        <IconButton
+          size="small"
+          onClick={() => setIsDark((s) => !s)}
+          aria-label="toggle theme"
+          sx={{ backgroundColor: 'var(--bg-muted)', '&:hover': { backgroundColor: 'var(--bg-default)' } }}
         >
-          HR Job Portal
-        </Typography>
-        <IconButton size="small" onClick={() => setIsDark((s) => !s)} aria-label="toggle theme">
           {isDark ? <LightModeIcon fontSize="small" /> : <DarkModeIcon fontSize="small" />}
         </IconButton>
       </Box>
-      <Divider sx={{ mb: 2, borderColor: 'var(--color-border)' }} />
+      <Divider sx={{ mb: 2, borderColor: 'var(--border-default)' }} />
       <List>
         {menu.map((item) => (
           <ListItemButton
@@ -56,16 +66,18 @@ function Sidebar() {
             component={NavLink}
             to={item.path}
             sx={{
-              borderRadius: 1,
+              borderRadius: 2,
               mb: 1,
-              color: 'var(--color-text)',
-              '& .MuiListItemIcon-root': { color: 'var(--color-muted)' },
-              '&:hover': { backgroundColor: 'rgba(9,105,218,0.04)' },
+              py: 1.25,
+              px: 1.5,
+              color: 'var(--text-primary)',
+              '& .MuiListItemIcon-root': { color: 'var(--text-secondary)' },
+              '&:hover': { backgroundColor: 'rgba(9,105,218,0.06)' },
             }}
             className={({ isActive }) => (isActive ? 'active' : undefined)}
           >
-            <ListItemIcon>{item.icon}</ListItemIcon>
-            <ListItemText primary={item.label} />
+            <ListItemIcon sx={{ minWidth: 40 }}>{item.icon}</ListItemIcon>
+            <ListItemText primary={item.label} primaryTypographyProps={{ fontWeight: 600 }} />
           </ListItemButton>
         ))}
       </List>

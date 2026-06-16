@@ -12,31 +12,32 @@ function CandidateCard({ candidate }) {
         display: 'flex',
         flexDirection: 'column',
         height: '100%',
-        borderColor: 'var(--color-border)',
-        backgroundColor: 'var(--color-bg)',
+        borderColor: 'var(--border-default)',
+        backgroundColor: 'var(--card-bg)',
+        boxShadow: 'var(--shadow-sm)',
       }}
     >
-      <CardContent sx={{ flexGrow: 1 }}>
+      <CardContent sx={{ flexGrow: 1, p: 3 }}>
         <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={1} sx={{ mb: 2 }}>
-          <Typography variant="h6" component="div">
+          <Typography variant="h6" component="div" sx={{ fontSize: 18, fontWeight: 700, color: 'var(--text-primary)' }}>
             {candidate.lastName}, {candidate.firstName}
           </Typography>
           <CandidateStatusChip status={candidate.status} />
         </Stack>
 
-        <Typography variant="body2" sx={{ color: 'var(--color-muted)' }} gutterBottom>
+        <Typography variant="body2" sx={{ color: 'var(--text-secondary)', mb: 1.5 }}>
           {candidate.currentPosition} · {candidate.workMode} · {candidate.seniority}
         </Typography>
-        <Typography variant="body2" sx={{ mb: 1.5 }}>
+        <Typography variant="body2" sx={{ color: 'var(--text-secondary)', mb: 2 }}>
           {candidate.city}, {candidate.country}
         </Typography>
         <Stack direction="row" spacing={1} flexWrap="wrap" sx={{ mb: 2 }}>
-          <Chip label={`Alta: ${formatDate(candidate.createdAt)}`} size="small" />
-          <Chip label={candidate.dni} size="small" />
+          <Chip label={`Alta: ${formatDate(candidate.createdAt)}`} size="small" sx={{ borderRadius: 1, backgroundColor: 'var(--bg-muted)', color: 'var(--text-secondary)' }} />
+          <Chip label={candidate.dni} size="small" sx={{ borderRadius: 1, backgroundColor: 'var(--bg-muted)', color: 'var(--text-secondary)' }} />
         </Stack>
       </CardContent>
-      <CardActions sx={{ p: 2 }}>
-        <Button component={RouterLink} to={`/candidatos/${candidate.id}`} size="small" sx={{ color: 'var(--color-primary)' }}>
+      <CardActions sx={{ p: 3, pt: 0 }}>
+        <Button component={RouterLink} to={`/candidatos/${candidate.id}`} size="small" sx={{ color: 'var(--primary)', fontWeight: 700 }}>
           Ver detalle
         </Button>
       </CardActions>

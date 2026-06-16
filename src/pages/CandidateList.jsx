@@ -60,7 +60,9 @@ function CandidateList() {
           <Typography variant="h4" sx={{ fontWeight: 700, mb: 1 }}>
             Gestión de candidatos
           </Typography>
-          <Typography color="text.secondary">Busca, filtra y revisa el estado de los candidatos en proceso.</Typography>
+          <Typography sx={{ color: 'var(--text-secondary)' }}>
+            Busca, filtra y revisa el estado de los candidatos en proceso.
+          </Typography>
         </Box>
         <Button component={RouterLink} to="/candidatos/nuevo" variant="contained">
           Nuevo candidato

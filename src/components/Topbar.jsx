@@ -5,20 +5,21 @@ function Topbar({ drawerWidth }) {
   return (
     <AppBar
       position="fixed"
-      elevation={1}
+      elevation={0}
       sx={{
         width: `calc(100% - ${drawerWidth}px)`,
         ml: `${drawerWidth}px`,
-        backgroundColor: 'var(--color-bg)',
-        color: 'var(--color-text)',
+        backgroundColor: 'var(--card-bg)',
+        color: 'var(--text-primary)',
+        borderBottom: '1px solid var(--border-default)',
       }}
     >
-      <Toolbar sx={{ justifyContent: 'space-between' }}>
+      <Toolbar sx={{ justifyContent: 'space-between', gap: 2 }}>
         <Box>
           <Typography variant="h6" component="div" sx={{ fontWeight: 700 }}>
             Portal de Talent Acquisition
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" sx={{ color: 'var(--text-secondary)' }}>
             Gestión de puestos y visualización de vacantes.
           </Typography>
         </Box>
@@ -28,9 +29,9 @@ function Topbar({ drawerWidth }) {
           variant="contained"
           size="small"
           sx={{
-            backgroundColor: 'var(--color-primary)',
-            color: 'var(--color-primary-foreground)',
-            '&:hover': { backgroundColor: 'rgba(9,105,218,0.9)' },
+            backgroundColor: 'var(--button-primary)',
+            color: 'white',
+            '&:hover': { backgroundColor: 'var(--button-primary-hover)' },
           }}
         >
           Nuevo puesto

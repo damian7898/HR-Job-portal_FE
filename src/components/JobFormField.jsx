@@ -16,14 +16,17 @@ function JobFormField({ name, label, value, onChange, type = 'text', error, help
       select={select}
       margin="normal"
       size="small"
+      variant="outlined"
       sx={{
-        '& .MuiInputLabel-root': { color: 'var(--color-muted)' },
+        '& .MuiInputLabel-root': { color: 'var(--text-secondary)' },
         '& .MuiOutlinedInput-root': {
-          backgroundColor: 'var(--color-bg)',
-          '& fieldset': { borderColor: 'var(--color-border)' },
-          '&:hover fieldset': { borderColor: 'var(--color-primary)' },
-          '&.Mui-focused fieldset': { borderColor: 'var(--color-primary)' },
+          backgroundColor: 'var(--bg-default)',
+          borderRadius: 1,
+          '& fieldset': { borderColor: 'var(--border-default)' },
+          '&:hover fieldset': { borderColor: 'var(--primary)' },
+          '&.Mui-focused fieldset': { borderColor: 'var(--primary)' },
         },
+        '& .MuiFormHelperText-root': { color: 'var(--text-secondary)' },
       }}
       {...props}
     >

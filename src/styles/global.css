@@ -1,75 +1,176 @@
 :root {
-  /* GitHub-inspired palette */
-  --color-bg: #ffffff; /* page background */
-  --color-surface: #f6f8fa; /* cards, panels */
-  --color-muted: #6e7781; /* secondary text */
-  --color-text: #0d1117; /* main text */
-  --color-primary: #0969da; /* links, primary actions */
-  --color-primary-foreground: #ffffff;
-  --color-success: #2da44e;
-  --color-warning: #bf8700;
-  --color-danger: #cf222e;
-  --color-border: #d0d7de;
+  --bg-default: #ffffff;
+  --bg-subtle: #f6f8fa;
+  --bg-muted: #f3f4f6;
+  --border-default: #d0d7de;
+  --text-primary: #24292f;
+  --text-secondary: #57606a;
+  --primary: #0969da;
+  --primary-hover: #0860ca;
+  --success: #1a7f37;
+  --success-hover: #2c974b;
+  --warning: #9a6700;
+  --danger: #cf222e;
+  --sidebar-bg: #ffffff;
+  --card-bg: #ffffff;
+  --button-primary: #2da44e;
+  --button-primary-hover: #2c974b;
+  --button-secondary: #f6f8fa;
+  --button-secondary-border: #d0d7de;
   --radius: 8px;
   --shadow-sm: 0 1px 2px rgba(16,24,40,0.04);
+  --shadow-md: 0 4px 12px rgba(16,24,40,0.08);
 }
 
 html, body, #root {
   min-height: 100%;
   margin: 0;
-  font-family: Inter, system-ui, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
 }
 
 body {
-  background-color: var(--color-surface) !important;
-  color: var(--color-text);
-}
-
-/* Dark mode when the HTML element receives the `dark` class */
-.dark {
-  --color-bg: #0b1220;
-  --color-surface: #0b1220;
-  --color-muted: #9ba0a6;
-  --color-text: #e6edf3;
-  --color-border: rgba(255,255,255,0.06);
+  background-color: var(--bg-subtle) !important;
+  color: var(--text-primary);
 }
 
 * {
   box-sizing: border-box;
 }
 
-button {
+button, input, textarea, select {
   font: inherit;
+}
+
+button {
+  cursor: pointer;
 }
 
 a {
   text-decoration: none;
-  color: var(--color-primary);
+  color: var(--primary);
 }
 
-.active {
-  background-color: rgba(9,105,218,0.08); /* subtle primary tint */
+::selection {
+  background: rgba(9,105,218,0.2);
 }
 
-/* Utility classes using the palette */
-.card {
-  background: var(--color-bg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius);
+.dark {
+  --bg-default: #0d1117;
+  --bg-subtle: #161b22;
+  --bg-muted: #21262d;
+  --border-default: #30363d;
+  --text-primary: #e6edf3;
+  --text-secondary: #7d8590;
+  --primary: #2f81f7;
+  --primary-hover: #58a6ff;
+  --success: #3fb950;
+  --success-hover: #2f8f41;
+  --warning: #d29922;
+  --danger: #f85149;
+  --sidebar-bg: #161b22;
+  --card-bg: #0d1117;
+  --button-secondary: #0d1117;
+  --button-secondary-border: #30363d;
+}
+
+.github-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-default);
+  border-radius: 12px;
   box-shadow: var(--shadow-sm);
 }
 
-.muted {
-  color: var(--color-muted);
+.github-table {
+  border: 1px solid var(--border-default);
+  border-radius: 12px;
+  background: var(--card-bg);
+  overflow: hidden;
 }
 
-/* Ensure MUI baseline and Paper/AppBar components follow our theme variables */
+.github-table th,
+.github-table td {
+  border-bottom: 1px solid var(--border-default);
+}
+
+.github-table th {
+  background: var(--bg-default);
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.github-table tr:hover {
+  background: var(--bg-muted);
+}
+
+.github-badge {
+  border-radius: 999px;
+  font-weight: 600;
+  padding: 0.25rem 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.github-button-primary {
+  background: var(--button-primary);
+  color: white;
+  border: none;
+}
+
+.github-button-primary:hover {
+  background: var(--button-primary-hover);
+}
+
+.github-button-secondary {
+  background: var(--button-secondary);
+  color: var(--text-primary);
+  border: 1px solid var(--button-secondary-border);
+}
+
+.github-button-secondary:hover {
+  background: var(--bg-default);
+}
+
+.github-input {
+  background: var(--card-bg);
+  border-radius: 6px;
+}
+
+.github-input .MuiOutlinedInput-notchedOutline {
+  border-color: var(--border-default);
+}
+
+.github-input .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+  border-color: var(--primary);
+}
+
+.github-input .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.15);
+}
+
+.active {
+  background: rgba(9,105,218,.1);
+  color: #0969da;
+  font-weight: 600;
+}
+
 .MuiPaper-root {
-  background-color: var(--color-bg) !important;
-  border-color: var(--color-border) !important;
+  background-color: var(--card-bg) !important;
+  color: var(--text-primary) !important;
+  border-color: var(--border-default) !important;
 }
 
 .MuiAppBar-root {
-  background-color: var(--color-bg) !important;
-  color: var(--color-text) !important;
+  background-color: var(--card-bg) !important;
+  color: var(--text-primary) !important;
+  border-bottom: 1px solid var(--border-default);
+  box-shadow: none !important;
+}
+
+.MuiTypography-root {
+  color: var(--text-primary);
 }

@@ -14,7 +14,15 @@ function PaginationControls({ currentPage, totalPages, onChange }) {
         page={currentPage}
         count={totalPages}
         onChange={(event, page) => onChange(page)}
-        sx={{ '& .Mui-selected': { backgroundColor: 'var(--color-primary)', color: 'var(--color-primary-foreground)' } }}
+        sx={{
+          '& .Mui-selected': {
+            backgroundColor: 'var(--primary)',
+            color: '#ffffff',
+          },
+          '& .MuiPaginationItem-root': {
+            borderRadius: '8px',
+          },
+        }}
       />
     </Box>
   );

@@ -40,7 +40,7 @@ function JobList() {
           <Typography variant="h4" sx={{ fontWeight: 700, mb: 1 }}>
             Buscador de vacantes
           </Typography>
-          <Typography color="text.secondary">
+          <Typography sx={{ color: 'var(--text-secondary)' }}>
             Encuentra las oportunidades más relevantes por área, modalidad y seniority.
           </Typography>
         </Box>

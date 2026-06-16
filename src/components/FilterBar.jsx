@@ -2,8 +2,19 @@ import { Box, Grid, MenuItem, TextField } from '@mui/material';
 import { areas, modalidades, seniorities } from '../utils/formatters';
 
 function FilterBar({ filters, onChange }) {
+  const fieldStyles = {
+    '& .MuiInputLabel-root': { color: 'var(--text-secondary)' },
+    '& .MuiOutlinedInput-root': {
+      backgroundColor: 'var(--bg-default)',
+      borderRadius: 1,
+      '& fieldset': { borderColor: 'var(--border-default)' },
+      '&:hover fieldset': { borderColor: 'var(--primary)' },
+      '&.Mui-focused fieldset': { borderColor: 'var(--primary)' },
+    },
+  };
+
   return (
-    <Box sx={{ mb: 3 }}>
+    <Box sx={{ mb: 3, p: 3, borderRadius: 2, backgroundColor: 'var(--card-bg)', border: '1px solid var(--border-default)' }}>
       <Grid container spacing={2}>
         <Grid item xs={12} md={4}>
           <TextField
@@ -12,7 +23,8 @@ function FilterBar({ filters, onChange }) {
             onChange={(event) => onChange({ ...filters, search: event.target.value, page: 1 })}
             fullWidth
             size="small"
-            sx={{ '& .MuiInputLabel-root': { color: 'var(--color-muted)' }, '& .MuiOutlinedInput-root': { backgroundColor: 'var(--color-bg)', '& fieldset': { borderColor: 'var(--color-border)' } } }}
+            variant="outlined"
+            sx={fieldStyles}
           />
         </Grid>
         <Grid item xs={12} md={2}>
@@ -23,7 +35,8 @@ function FilterBar({ filters, onChange }) {
             select
             fullWidth
             size="small"
-            sx={{ '& .MuiInputLabel-root': { color: 'var(--color-muted)' }, '& .MuiOutlinedInput-root': { backgroundColor: 'var(--color-bg)', '& fieldset': { borderColor: 'var(--color-border)' } } }}
+            variant="outlined"
+            sx={fieldStyles}
           >
             <MenuItem value="">Todos</MenuItem>
             {areas.map((item) => (
@@ -41,7 +54,8 @@ function FilterBar({ filters, onChange }) {
             select
             fullWidth
             size="small"
-            sx={{ '& .MuiInputLabel-root': { color: 'var(--color-muted)' }, '& .MuiOutlinedInput-root': { backgroundColor: 'var(--color-bg)', '& fieldset': { borderColor: 'var(--color-border)' } } }}
+            variant="outlined"
+            sx={fieldStyles}
           >
             <MenuItem value="">Todas</MenuItem>
             {modalidades.map((item) => (
@@ -59,7 +73,8 @@ function FilterBar({ filters, onChange }) {
             select
             fullWidth
             size="small"
-            sx={{ '& .MuiInputLabel-root': { color: 'var(--color-muted)' }, '& .MuiOutlinedInput-root': { backgroundColor: 'var(--color-bg)', '& fieldset': { borderColor: 'var(--color-border)' } } }}
+            variant="outlined"
+            sx={fieldStyles}
           >
             <MenuItem value="">Todos</MenuItem>
             {seniorities.map((item) => (
@@ -77,7 +92,8 @@ function FilterBar({ filters, onChange }) {
             select
             fullWidth
             size="small"
-            sx={{ '& .MuiInputLabel-root': { color: 'var(--color-muted)' }, '& .MuiOutlinedInput-root': { backgroundColor: 'var(--color-bg)', '& fieldset': { borderColor: 'var(--color-border)' } } }}
+            variant="outlined"
+            sx={fieldStyles}
           >
             <MenuItem value="desc">Más recientes</MenuItem>
             <MenuItem value="asc">Más antiguos</MenuItem>
