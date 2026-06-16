@@ -1,6 +1,6 @@
 import { TextField } from '@mui/material';
 
-function JobFormField({ name, label, value, onChange, type = 'text', error, helperText, multiline = false, rows = 1, select, children }) {
+function JobFormField({ name, label, value, onChange, type = 'text', error, helperText, multiline = false, rows = 1, select, children, ...props }) {
   return (
     <TextField
       name={name}
@@ -16,6 +16,7 @@ function JobFormField({ name, label, value, onChange, type = 'text', error, help
       select={select}
       margin="normal"
       size="small"
+      {...props}
     >
       {children}
     </TextField>

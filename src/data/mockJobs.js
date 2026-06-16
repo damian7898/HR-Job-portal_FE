@@ -1,88 +1,88 @@
-const mockJobs = [
-  {
-    id: 'job-001',
-    titulo: 'Analista de Recursos Humanos',
-    area: 'Talento',
-    modalidad: 'Híbrido',
-    seniority: 'Semi-Senior',
-    descripcion: 'Responsable de procesos de reclutamiento, selección y onboarding.',
-    requisitos: ['2+ años en posiciones similares', 'Habilidades de comunicación', 'Gestión de indicadores de RRHH'],
-    salarioMinimo: 60000,
-    salarioMaximo: 85000,
-    ubicacion: 'Ciudad de México',
-    fechaPublicacion: new Date('2026-06-01').toISOString(),
-    estado: 'Activo',
-  },
-  {
-    id: 'job-002',
-    titulo: 'Especialista en Desarrollo Organizacional',
-    area: 'Talento',
-    modalidad: 'Remoto',
-    seniority: 'Senior',
-    descripcion: 'Diseña planes de capacitación y programas de mejora continua.',
-    requisitos: ['Experiencia en cultura organizacional', 'Herramientas de e-learning', 'Visión estratégica'],
-    salarioMinimo: 85000,
-    salarioMaximo: 110000,
-    ubicacion: 'Remoto',
-    fechaPublicacion: new Date('2026-05-25').toISOString(),
-    estado: 'Activo',
-  },
-  {
-    id: 'job-003',
-    titulo: 'Coordinador de Selección',
-    area: 'Reclutamiento',
-    modalidad: 'Presencial',
-    seniority: 'Junior',
-    descripcion: 'Coordina entrevistas, pruebas y seguimiento de candidatos.',
-    requisitos: ['Proactividad', 'Organización', 'Manejo de ATS'],
-    salarioMinimo: 45000,
-    salarioMaximo: 62000,
-    ubicacion: 'Guadalajara',
-    fechaPublicacion: new Date('2026-06-08').toISOString(),
-    estado: 'Activo',
-  },
-  {
-    id: 'job-004',
-    titulo: 'Talent Acquisition Partner',
-    area: 'Reclutamiento',
-    modalidad: 'Híbrido',
-    seniority: 'Senior',
-    descripcion: 'Acompaña proyectos clave de adquisición de talento para áreas estratégicas.',
-    requisitos: ['Networking avanzado', 'Entrevistas por competencias', 'Toma de decisiones'],
-    salarioMinimo: 95000,
-    salarioMaximo: 125000,
-    ubicacion: 'Monterrey',
-    fechaPublicacion: new Date('2026-06-05').toISOString(),
-    estado: 'Activo',
-  },
-  {
-    id: 'job-005',
-    titulo: 'Partner de Employer Branding',
-    area: 'Marca Empleadora',
-    modalidad: 'Remoto',
-    seniority: 'Semi-Senior',
-    descripcion: 'Construye estrategias de marca empleadora y campañas de atracción de talento.',
-    requisitos: ['Marketing digital', 'Comunicación', 'Creatividad'],
-    salarioMinimo: 70000,
-    salarioMaximo: 95000,
-    ubicacion: 'Remoto',
-    fechaPublicacion: new Date('2026-06-10').toISOString(),
-    estado: 'Activo',
-  },
-  {
-    id: 'job-006',
-    titulo: 'Analista de Compensaciones',
-    area: 'Compensaciones',
-    modalidad: 'Presencial',
-    seniority: 'Junior',
-    descripcion: 'Gestiona estructuras salariales y análisis de beneficios.',
-    requisitos: ['Excel avanzado', 'Análisis de datos', 'Confidencialidad'],
-    salarioMinimo: 58000,
-    salarioMaximo: 76000,
-    ubicacion: 'Ciudad de México',
-    fechaPublicacion: new Date('2026-06-12').toISOString(),
-    estado: 'Activo',
-  },
+import { createEmptyJob } from '../models/jobPosition';
+
+const areas = ['Talento', 'Reclutamiento', 'Marca Empleadora', 'Compensaciones', 'Bienestar', 'Formación'];
+const modalidades = ['Presencial', 'Híbrido', 'Remoto'];
+const seniorities = ['Junior', 'Semi-Senior', 'Senior', 'Lead'];
+const titles = [
+  'Analista de Recursos Humanos',
+  'Especialista en Desarrollo Organizacional',
+  'Coordinador de Selección',
+  'Talent Acquisition Partner',
+  'Partner de Employer Branding',
+  'Analista de Compensaciones',
+  'Consultor de Talento',
+  'Líder de Reclutamiento',
+  'Gerente de Personas',
+  'Especialista en Diversidad e Inclusión',
+  'Coordinador de Onboarding',
+  'Especialista en Employer Experience',
+  'Analista de HR Analytics',
+  'Consultor de Cambio Organizacional',
+  'Manager de Cultura',
 ];
+const locations = [
+  'Ciudad de México',
+  'Buenos Aires',
+  'Medellín',
+  'Santiago',
+  'Madrid',
+  'Lima',
+  'Monterrey',
+  'Guadalajara',
+  'Bogotá',
+  'Puebla',
+  'Querétaro',
+  'Rosario',
+];
+const states = ['Activo', 'Cerrado', 'Pendiente'];
+
+const baseDescriptions = [
+  'Gestiona procesos clave de talento y desarrollo organizacional.',
+  'Coordina búsquedas, entrevistas y procesos de selección.',
+  'Diseña estrategias de reclutamiento y retención de talento.',
+  'Lidera iniciativas de formación y bienestar laboral.',
+  'Analiza datos de RRHH para mejorar decisiones estratégicas.',
+  'Impulsa la cultura organizacional y el compromiso interno.',
+];
+
+const requirements = [
+  ['Comunicación efectiva', 'Trabajo en equipo', 'Orientación a resultados'],
+  ['Conocimiento de ATS', 'Experiencia en selección', 'Habilidades interpersonales'],
+  ['Analítica de datos', 'Excel avanzado', 'Presentación de informes'],
+  ['Gestión de proyectos', 'Liderazgo', 'Pensamiento estratégico'],
+  ['Orientación al servicio', 'Resolución de conflictos', 'Proactividad'],
+  ['Capacidad de adaptación', 'Gestión del cambio', 'Visión global'],
+];
+
+const mockJobs = Array.from({ length: 100 }, (_, index) => {
+  const area = areas[index % areas.length];
+  const modalidad = modalidades[index % modalidades.length];
+  const seniority = seniorities[index % seniorities.length];
+  const title = titles[index % titles.length];
+  const ubicacion = locations[index % locations.length];
+  const descripcion = baseDescriptions[index % baseDescriptions.length];
+  const requisitos = requirements[index % requirements.length];
+  const salarioBase = 45000 + (index % 12) * 5000;
+  const salarioMinimo = salarioBase;
+  const salarioMaximo = salarioBase + 20000;
+  const fechaPublicacion = new Date(2026, index % 12, (index % 28) + 1).toISOString();
+  const estado = states[index % states.length];
+
+  return {
+    ...createEmptyJob(),
+    id: `job-${String(index + 1).padStart(3, '0')}`,
+    titulo: `${title} ${index + 1}`,
+    area,
+    modalidad,
+    seniority,
+    descripcion,
+    requisitos,
+    salarioMinimo,
+    salarioMaximo,
+    ubicacion,
+    fechaPublicacion,
+    estado,
+  };
+});
 
 export default mockJobs;
