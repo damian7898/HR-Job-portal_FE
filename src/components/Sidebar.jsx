@@ -13,7 +13,6 @@ function Sidebar() {
     { label: 'Dashboard', path: '/', icon: <DashboardIcon /> },
     { label: 'Vacantes', path: '/puestos', icon: <WorkOutlineIcon /> },
     { label: 'Candidatos', path: '/candidatos', icon: <PeopleAltIcon /> },
-    { label: 'Nuevo puesto', path: '/puestos/nuevo', icon: <AddCircleOutlineIcon /> },
   ];
 
   const [isDark, setIsDark] = useState(() => {
@@ -37,21 +36,32 @@ function Sidebar() {
   return (
     <Box sx={{ p: 3 }}>
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-        <Typography variant="h6" component="div" gutterBottom sx={{ display: 'inline-flex', alignItems: 'center' }}>
+        <Typography
+          variant="h6"
+          component="div"
+          gutterBottom
+          sx={{ display: 'inline-flex', alignItems: 'center', color: 'var(--color-text)' }}
+        >
           HR Job Portal
         </Typography>
         <IconButton size="small" onClick={() => setIsDark((s) => !s)} aria-label="toggle theme">
           {isDark ? <LightModeIcon fontSize="small" /> : <DarkModeIcon fontSize="small" />}
         </IconButton>
       </Box>
-      <Divider sx={{ mb: 2 }} />
+      <Divider sx={{ mb: 2, borderColor: 'var(--color-border)' }} />
       <List>
         {menu.map((item) => (
           <ListItemButton
             key={item.path}
             component={NavLink}
             to={item.path}
-            sx={{ borderRadius: 1, mb: 1 }}
+            sx={{
+              borderRadius: 1,
+              mb: 1,
+              color: 'var(--color-text)',
+              '& .MuiListItemIcon-root': { color: 'var(--color-muted)' },
+              '&:hover': { backgroundColor: 'rgba(9,105,218,0.04)' },
+            }}
             className={({ isActive }) => (isActive ? 'active' : undefined)}
           >
             <ListItemIcon>{item.icon}</ListItemIcon>

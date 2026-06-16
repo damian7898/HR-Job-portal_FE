@@ -54,7 +54,12 @@ const requirements = [
   ['Capacidad de adaptación', 'Gestión del cambio', 'Visión global'],
 ];
 
-const mockJobs = Array.from({ length: 100 }, (_, index) => {
+const truncateTitle = (text, maxLength) => {
+  if (text.length <= maxLength) return text;
+  return `${text.slice(0, maxLength - 1)}…`;
+};
+
+const mockJobs = Array.from({ length: 50 }, (_, index) => {
   const area = areas[index % areas.length];
   const modalidad = modalidades[index % modalidades.length];
   const seniority = seniorities[index % seniorities.length];
@@ -71,7 +76,7 @@ const mockJobs = Array.from({ length: 100 }, (_, index) => {
   return {
     ...createEmptyJob(),
     id: `job-${String(index + 1).padStart(3, '0')}`,
-    titulo: `${title} ${index + 1}`,
+    titulo: truncateTitle(`${title} ${index + 1}`, 35),
     area,
     modalidad,
     seniority,

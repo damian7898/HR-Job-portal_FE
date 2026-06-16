@@ -16,16 +16,16 @@ function CandidateTable({ candidates, sortField, sortDirection, onSort, loading 
   ];
 
   if (loading) {
-    return <Typography>Cargando candidatos...</Typography>;
+    return <Typography sx={{ color: 'var(--color-muted)' }}>Cargando candidatos...</Typography>;
   }
 
   return (
-    <TableContainer component={Paper} elevation={0} sx={{ borderRadius: 2 }}>
+    <TableContainer component={Paper} elevation={0} sx={{ borderRadius: 2, backgroundColor: 'var(--color-bg)', border: '1px solid var(--color-border)' }}>
       <Table>
         <TableHead>
           <TableRow>
             {columns.map((column) => (
-              <TableCell key={column.field} sx={{ fontWeight: 700 }}>
+              <TableCell key={column.field} sx={{ fontWeight: 700, color: 'var(--color-text)' }}>
                 <TableSortLabel
                   active={sortField === column.field}
                   direction={sortField === column.field ? sortDirection : 'asc'}
@@ -35,26 +35,26 @@ function CandidateTable({ candidates, sortField, sortDirection, onSort, loading 
                 </TableSortLabel>
               </TableCell>
             ))}
-            <TableCell sx={{ fontWeight: 700 }}>Acciones</TableCell>
+            <TableCell sx={{ fontWeight: 700, color: 'var(--color-text)' }}>Acciones</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {candidates.map((candidate) => (
-            <TableRow key={candidate.id} hover>
-              <TableCell>
+            <TableRow key={candidate.id} hover sx={{ '&:hover': { backgroundColor: 'rgba(9,105,218,0.03)' } }}>
+              <TableCell sx={{ color: 'var(--color-text)' }}>
                 {candidate.lastName}, {candidate.firstName}
               </TableCell>
-              <TableCell>{candidate.dni}</TableCell>
-              <TableCell>{candidate.email}</TableCell>
-              <TableCell>{candidate.currentPosition}</TableCell>
-              <TableCell>{candidate.seniority}</TableCell>
-              <TableCell>{candidate.workMode}</TableCell>
+              <TableCell sx={{ color: 'var(--color-text)' }}>{candidate.dni}</TableCell>
+              <TableCell sx={{ color: 'var(--color-text)' }}>{candidate.email}</TableCell>
+              <TableCell sx={{ color: 'var(--color-text)' }}>{candidate.currentPosition}</TableCell>
+              <TableCell sx={{ color: 'var(--color-text)' }}>{candidate.seniority}</TableCell>
+              <TableCell sx={{ color: 'var(--color-text)' }}>{candidate.workMode}</TableCell>
               <TableCell>
                 <CandidateStatusChip status={candidate.status} />
               </TableCell>
-              <TableCell>{formatDate(candidate.createdAt)}</TableCell>
+              <TableCell sx={{ color: 'var(--color-text)' }}>{formatDate(candidate.createdAt)}</TableCell>
               <TableCell>
-                <Button component={RouterLink} to={`/candidatos/${candidate.id}`} size="small">
+                <Button component={RouterLink} to={`/candidatos/${candidate.id}`} size="small" sx={{ color: 'var(--color-primary)' }}>
                   Ver
                 </Button>
               </TableCell>

@@ -12,6 +12,7 @@ function FilterBar({ filters, onChange }) {
             onChange={(event) => onChange({ ...filters, search: event.target.value, page: 1 })}
             fullWidth
             size="small"
+            sx={{ '& .MuiInputLabel-root': { color: 'var(--color-muted)' }, '& .MuiOutlinedInput-root': { backgroundColor: 'var(--color-bg)', '& fieldset': { borderColor: 'var(--color-border)' } } }}
           />
         </Grid>
         <Grid item xs={12} md={2}>
@@ -22,6 +23,7 @@ function FilterBar({ filters, onChange }) {
             select
             fullWidth
             size="small"
+            sx={{ '& .MuiInputLabel-root': { color: 'var(--color-muted)' }, '& .MuiOutlinedInput-root': { backgroundColor: 'var(--color-bg)', '& fieldset': { borderColor: 'var(--color-border)' } } }}
           >
             <MenuItem value="">Todos</MenuItem>
             {areas.map((item) => (
@@ -39,6 +41,7 @@ function FilterBar({ filters, onChange }) {
             select
             fullWidth
             size="small"
+            sx={{ '& .MuiInputLabel-root': { color: 'var(--color-muted)' }, '& .MuiOutlinedInput-root': { backgroundColor: 'var(--color-bg)', '& fieldset': { borderColor: 'var(--color-border)' } } }}
           >
             <MenuItem value="">Todas</MenuItem>
             {modalidades.map((item) => (
@@ -56,6 +59,7 @@ function FilterBar({ filters, onChange }) {
             select
             fullWidth
             size="small"
+            sx={{ '& .MuiInputLabel-root': { color: 'var(--color-muted)' }, '& .MuiOutlinedInput-root': { backgroundColor: 'var(--color-bg)', '& fieldset': { borderColor: 'var(--color-border)' } } }}
           >
             <MenuItem value="">Todos</MenuItem>
             {seniorities.map((item) => (
@@ -73,6 +77,7 @@ function FilterBar({ filters, onChange }) {
             select
             fullWidth
             size="small"
+            sx={{ '& .MuiInputLabel-root': { color: 'var(--color-muted)' }, '& .MuiOutlinedInput-root': { backgroundColor: 'var(--color-bg)', '& fieldset': { borderColor: 'var(--color-border)' } } }}
           >
             <MenuItem value="desc">Más recientes</MenuItem>
             <MenuItem value="asc">Más antiguos</MenuItem>

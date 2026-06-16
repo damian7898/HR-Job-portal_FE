@@ -9,8 +9,8 @@ function Topbar({ drawerWidth }) {
       sx={{
         width: `calc(100% - ${drawerWidth}px)`,
         ml: `${drawerWidth}px`,
-        backgroundColor: '#ffffff',
-        color: '#111827',
+        backgroundColor: 'var(--color-bg)',
+        color: 'var(--color-text)',
       }}
     >
       <Toolbar sx={{ justifyContent: 'space-between' }}>
@@ -22,7 +22,17 @@ function Topbar({ drawerWidth }) {
             Gestión de puestos y visualización de vacantes.
           </Typography>
         </Box>
-        <Button component={RouterLink} to="/puestos/nuevo" variant="contained" size="small">
+        <Button
+          component={RouterLink}
+          to="/puestos/nuevo"
+          variant="contained"
+          size="small"
+          sx={{
+            backgroundColor: 'var(--color-primary)',
+            color: 'var(--color-primary-foreground)',
+            '&:hover': { backgroundColor: 'rgba(9,105,218,0.9)' },
+          }}
+        >
           Nuevo puesto
         </Button>
       </Toolbar>

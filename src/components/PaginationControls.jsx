@@ -7,14 +7,14 @@ function PaginationControls({ currentPage, totalPages, onChange }) {
 
   return (
     <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mt: 3 }}>
-      <Typography variant="body2" color="text.secondary">
+      <Typography variant="body2" sx={{ color: 'var(--color-muted)' }}>
         Página {currentPage} de {totalPages}
       </Typography>
       <Pagination
         page={currentPage}
         count={totalPages}
         onChange={(event, page) => onChange(page)}
-        color="primary"
+        sx={{ '& .Mui-selected': { backgroundColor: 'var(--color-primary)', color: 'var(--color-primary-foreground)' } }}
       />
     </Box>
   );

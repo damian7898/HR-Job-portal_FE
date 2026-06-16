@@ -1,8 +1,9 @@
 import { Card, CardActions, CardContent, Chip, Stack, Typography, Button } from '@mui/material';
 import { formatDate } from '../utils/formatters';
 import { Link as RouterLink } from 'react-router-dom';
+import CandidateStatusChip from './CandidateStatusChip';
 
-function JobCard({ job }) {
+function CandidateCard({ candidate }) {
   return (
     <Card
       variant="outlined"
@@ -18,31 +19,24 @@ function JobCard({ job }) {
       <CardContent sx={{ flexGrow: 1 }}>
         <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={1} sx={{ mb: 2 }}>
           <Typography variant="h6" component="div">
-            {job.titulo}
+            {candidate.lastName}, {candidate.firstName}
           </Typography>
-          <Chip
-            label={job.estado}
-            size="small"
-            sx={{
-              backgroundColor: job.estado === 'Activo' ? 'var(--color-success)' : 'var(--color-border)',
-              color: job.estado === 'Activo' ? 'var(--color-primary-foreground)' : 'var(--color-text)',
-            }}
-          />
+          <CandidateStatusChip status={candidate.status} />
         </Stack>
 
         <Typography variant="body2" sx={{ color: 'var(--color-muted)' }} gutterBottom>
-          {job.area} · {job.modalidad} · {job.seniority}
+          {candidate.currentPosition} · {candidate.workMode} · {candidate.seniority}
         </Typography>
         <Typography variant="body2" sx={{ mb: 1.5 }}>
-          {job.descripcion}
+          {candidate.city}, {candidate.country}
         </Typography>
         <Stack direction="row" spacing={1} flexWrap="wrap" sx={{ mb: 2 }}>
-          <Chip label={job.ubicacion} size="small" />
-          <Chip label={`Publicada: ${formatDate(job.fechaPublicacion)}`} size="small" />
+          <Chip label={`Alta: ${formatDate(candidate.createdAt)}`} size="small" />
+          <Chip label={candidate.dni} size="small" />
         </Stack>
       </CardContent>
       <CardActions sx={{ p: 2 }}>
-        <Button component={RouterLink} to={`/puestos/${job.id}`} size="small" sx={{ color: 'var(--color-primary)' }}>
+        <Button component={RouterLink} to={`/candidatos/${candidate.id}`} size="small" sx={{ color: 'var(--color-primary)' }}>
           Ver detalle
         </Button>
       </CardActions>
@@ -50,4 +44,4 @@ function JobCard({ job }) {
   );
 }
 
-export default JobCard;
+export default CandidateCard;

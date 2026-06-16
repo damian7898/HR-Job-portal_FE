@@ -3,7 +3,7 @@ import AppRoutes from './routes/AppRoutes';
 
 function App() {
   return (
-    <Box sx={{ minHeight: '100vh', backgroundColor: '#f5f6fa' }}>
+    <Box sx={{ minHeight: '100vh', backgroundColor: 'var(--color-surface)' }}>
       <CssBaseline />
       <AppRoutes />
     </Box>

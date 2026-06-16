@@ -14,14 +14,14 @@ function MainLayout() {
         sx={{
           width: drawerWidth,
           flexShrink: 0,
-          [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box', borderRight: '1px solid #e0e0e0' },
+          [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box', borderRight: '1px solid var(--color-border)', backgroundColor: 'var(--color-bg)' },
         }}
       >
         <Toolbar />
         <Sidebar />
       </Drawer>
 
-      <Box component="main" sx={{ flexGrow: 1, p: 3, minHeight: '100vh' }}>
+      <Box component="main" sx={{ flexGrow: 1, p: 3, minHeight: '100vh', backgroundColor: 'var(--color-surface)' }}>
         <Toolbar />
         <Outlet />
       </Box>

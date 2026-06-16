@@ -1,3 +1,19 @@
+:root {
+  /* GitHub-inspired palette */
+  --color-bg: #ffffff; /* page background */
+  --color-surface: #f6f8fa; /* cards, panels */
+  --color-muted: #6e7781; /* secondary text */
+  --color-text: #0d1117; /* main text */
+  --color-primary: #0969da; /* links, primary actions */
+  --color-primary-foreground: #ffffff;
+  --color-success: #2da44e;
+  --color-warning: #bf8700;
+  --color-danger: #cf222e;
+  --color-border: #d0d7de;
+  --radius: 8px;
+  --shadow-sm: 0 1px 2px rgba(16,24,40,0.04);
+}
+
 html, body, #root {
   min-height: 100%;
   margin: 0;
@@ -5,14 +21,17 @@ html, body, #root {
 }
 
 body {
-  background-color: #f5f6fa;
-  color: #1f2937;
+  background-color: var(--color-surface) !important;
+  color: var(--color-text);
 }
 
 /* Dark mode when the HTML element receives the `dark` class */
-.dark body {
-  background-color: #0b1220;
-  color: #e5e7eb;
+.dark {
+  --color-bg: #0b1220;
+  --color-surface: #0b1220;
+  --color-muted: #9ba0a6;
+  --color-text: #e6edf3;
+  --color-border: rgba(255,255,255,0.06);
 }
 
 * {
@@ -25,8 +44,32 @@ button {
 
 a {
   text-decoration: none;
+  color: var(--color-primary);
 }
 
 .active {
-  background-color: rgba(25, 118, 210, 0.08);
+  background-color: rgba(9,105,218,0.08); /* subtle primary tint */
+}
+
+/* Utility classes using the palette */
+.card {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+}
+
+.muted {
+  color: var(--color-muted);
+}
+
+/* Ensure MUI baseline and Paper/AppBar components follow our theme variables */
+.MuiPaper-root {
+  background-color: var(--color-bg) !important;
+  border-color: var(--color-border) !important;
+}
+
+.MuiAppBar-root {
+  background-color: var(--color-bg) !important;
+  color: var(--color-text) !important;
 }
