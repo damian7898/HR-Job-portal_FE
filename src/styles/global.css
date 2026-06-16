@@ -1,0 +1,26 @@
+html, body, #root {
+  min-height: 100%;
+  margin: 0;
+  font-family: Inter, system-ui, sans-serif;
+}
+
+body {
+  background-color: #f5f6fa;
+  color: #1f2937;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button {
+  font: inherit;
+}
+
+a {
+  text-decoration: none;
+}
+
+.active {
+  background-color: rgba(25, 118, 210, 0.08);
+}
