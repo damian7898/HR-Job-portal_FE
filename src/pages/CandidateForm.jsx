@@ -16,6 +16,7 @@ import { useCandidates } from '../context/CandidateContext';
 import { createEmptyCandidate } from '../models/candidate';
 import JobFormField from '../components/JobFormField';
 import { genders, nationalities, seniorities, workModes, availabilityOptions } from '../utils/formatters';
+import { useTranslation } from '../hooks/useTranslation';
 
 const ALLOWED_FILE_TYPES = ['application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/msword'];
 const MAX_FILE_SIZE = 5 * 1024 * 1024;
@@ -50,11 +51,11 @@ function CandidateForm() {
     const file = event.target.files?.[0];
     if (!file) return;
     if (!ALLOWED_FILE_TYPES.includes(file.type)) {
-      setErrors((prev) => ({ ...prev, cvFileUrl: 'Solo se permiten archivos PDF o DOCX.' }));
+      setErrors((prev) => ({ ...prev, cvFileUrl: t('errors.cvFileTypeInvalid') }));
       return;
     }
     if (file.size > MAX_FILE_SIZE) {
-      setErrors((prev) => ({ ...prev, cvFileUrl: 'El archivo no puede superar 5MB.' }));
+      setErrors((prev) => ({ ...prev, cvFileUrl: t('errors.cvFileSizeInvalid') }));
       return;
     }
     const fileUrl = URL.createObjectURL(file);
@@ -68,25 +69,25 @@ function CandidateForm() {
 
   const validateForm = () => {
     const nextErrors = {};
-    if (!candidate.firstName) nextErrors.firstName = 'El nombre es requerido.';
-    if (!candidate.lastName) nextErrors.lastName = 'El apellido es requerido.';
-    if (!candidate.dni) nextErrors.dni = 'El DNI es requerido.';
-    if (!candidate.birthDate) nextErrors.birthDate = 'La fecha de nacimiento es requerida.';
-    if (!candidate.gender) nextErrors.gender = 'El género es requerido.';
-    if (!candidate.nationality) nextErrors.nationality = 'La nacionalidad es requerida.';
-    if (!candidate.email) nextErrors.email = 'El email es requerido.';
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(candidate.email)) nextErrors.email = 'El email no es válido.';
-    if (!candidate.phone) nextErrors.phone = 'El teléfono es requerido.';
-    if (!candidate.address) nextErrors.address = 'La dirección es requerida.';
-    if (!candidate.city) nextErrors.city = 'La ciudad es requerida.';
-    if (!candidate.province) nextErrors.province = 'La provincia es requerida.';
-    if (!candidate.country) nextErrors.country = 'El país es requerido.';
-    if (!candidate.currentPosition) nextErrors.currentPosition = 'El puesto actual es requerido.';
-    if (!candidate.seniority) nextErrors.seniority = 'El seniority es requerido.';
-    if (!candidate.expectedSalary || candidate.expectedSalary <= 0) nextErrors.expectedSalary = 'Debes indicar un salario pretendido válido.';
-    if (!candidate.workMode) nextErrors.workMode = 'La modalidad preferida es requerida.';
-    if (!candidate.availability) nextErrors.availability = 'La disponibilidad es requerida.';
-    if (!candidate.cvFileUrl) nextErrors.cvFileUrl = 'Debes cargar el CV en PDF o DOCX.';
+    if (!candidate.firstName) nextErrors.firstName = t('errors.firstNameRequired');
+    if (!candidate.lastName) nextErrors.lastName = t('errors.lastNameRequired');
+    if (!candidate.dni) nextErrors.dni = t('errors.dniRequired');
+    if (!candidate.birthDate) nextErrors.birthDate = t('errors.birthDateRequired');
+    if (!candidate.gender) nextErrors.gender = t('errors.genderRequired');
+    if (!candidate.nationality) nextErrors.nationality = t('errors.nationalityRequired');
+    if (!candidate.email) nextErrors.email = t('errors.emailRequired');
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(candidate.email)) nextErrors.email = t('errors.emailInvalid');
+    if (!candidate.phone) nextErrors.phone = t('errors.phoneRequired');
+    if (!candidate.address) nextErrors.address = t('errors.addressRequired');
+    if (!candidate.city) nextErrors.city = t('errors.cityRequired');
+    if (!candidate.province) nextErrors.province = t('errors.provinceRequired');
+    if (!candidate.country) nextErrors.country = t('errors.countryRequired');
+    if (!candidate.currentPosition) nextErrors.currentPosition = t('errors.currentPositionRequired');
+    if (!candidate.seniority) nextErrors.seniority = t('errors.seniorityRequired');
+    if (!candidate.expectedSalary || candidate.expectedSalary <= 0) nextErrors.expectedSalary = t('errors.expectedSalaryInvalid');
+    if (!candidate.workMode) nextErrors.workMode = t('errors.workModeRequired');
+    if (!candidate.availability) nextErrors.availability = t('errors.availabilityRequired');
+    if (!candidate.cvFileUrl) nextErrors.cvFileUrl = t('errors.cvRequired');
 
     setErrors(nextErrors);
     return Object.keys(nextErrors).length === 0;
@@ -104,9 +105,11 @@ function CandidateForm() {
       }
       navigate('/candidatos');
     } catch (err) {
-      setGlobalError(err.message || 'Error al guardar el candidato');
+      setGlobalError(err.message || t('errors.saveCandidateFailed'));
     }
   };
+
+  const { t } = useTranslation();
 
   return (
     <Card variant="outlined" sx={{ borderRadius: 2, p: 0 }}>
@@ -114,9 +117,9 @@ function CandidateForm() {
         <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 3 }}>
           <Box>
             <Typography variant="h4" sx={{ fontWeight: 700, mb: 1 }}>
-              {isEditMode ? 'Editar candidato' : 'Nuevo candidato'}
+              {isEditMode ? t('forms.editCandidate') : t('forms.newCandidate')}
             </Typography>
-            <Typography color="text.secondary">Registra los datos personales, de contacto y el CV del candidato.</Typography>
+            <Typography color="text.secondary">{t('forms.candidateSubtitle')}</Typography>
           </Box>
         </Stack>
 
@@ -124,11 +127,11 @@ function CandidateForm() {
           <Grid container spacing={2}>
             <Grid item xs={12} md={6}>
               <Typography variant="subtitle1" sx={{ mb: 1 }}>
-                Datos personales
+                {t('forms.personalData')}
               </Typography>
               <JobFormField
                 name="firstName"
-                label="Nombre"
+                label={t('forms.firstName')}
                 value={candidate.firstName}
                 onChange={handleChange}
                 error={errors.firstName}
@@ -136,7 +139,7 @@ function CandidateForm() {
               />
               <JobFormField
                 name="lastName"
-                label="Apellido"
+                label={t('forms.lastName')}
                 value={candidate.lastName}
                 onChange={handleChange}
                 error={errors.lastName}
@@ -144,7 +147,7 @@ function CandidateForm() {
               />
               <JobFormField
                 name="dni"
-                label="DNI"
+                label={t('forms.dni')}
                 value={candidate.dni}
                 onChange={handleChange}
                 error={errors.dni}
@@ -152,7 +155,7 @@ function CandidateForm() {
               />
               <JobFormField
                 name="birthDate"
-                label="Fecha de nacimiento"
+                label={t('forms.birthDate')}
                 type="date"
                 value={candidate.birthDate}
                 onChange={handleChange}
@@ -162,7 +165,7 @@ function CandidateForm() {
               />
               <JobFormField
                 name="gender"
-                label="Género"
+                label={t('forms.gender')}
                 value={candidate.gender}
                 onChange={handleChange}
                 error={errors.gender}
@@ -177,7 +180,7 @@ function CandidateForm() {
               </JobFormField>
               <JobFormField
                 name="nationality"
-                label="Nacionalidad"
+                label={t('forms.nationality')}
                 value={candidate.nationality}
                 onChange={handleChange}
                 error={errors.nationality}
@@ -194,11 +197,11 @@ function CandidateForm() {
 
             <Grid item xs={12} md={6}>
               <Typography variant="subtitle1" sx={{ mb: 1 }}>
-                Datos de contacto
+                {t('forms.contactData')}
               </Typography>
               <JobFormField
                 name="email"
-                label="Email"
+                label={t('forms.email')}
                 type="email"
                 value={candidate.email}
                 onChange={handleChange}
@@ -207,7 +210,7 @@ function CandidateForm() {
               />
               <JobFormField
                 name="phone"
-                label="Teléfono"
+                label={t('forms.phone')}
                 value={candidate.phone}
                 onChange={handleChange}
                 error={errors.phone}
@@ -215,7 +218,7 @@ function CandidateForm() {
               />
               <JobFormField
                 name="address"
-                label="Dirección"
+                label={t('forms.address')}
                 value={candidate.address}
                 onChange={handleChange}
                 error={errors.address}
@@ -223,7 +226,7 @@ function CandidateForm() {
               />
               <JobFormField
                 name="city"
-                label="Ciudad"
+                label={t('forms.city')}
                 value={candidate.city}
                 onChange={handleChange}
                 error={errors.city}
@@ -231,7 +234,7 @@ function CandidateForm() {
               />
               <JobFormField
                 name="province"
-                label="Provincia"
+                label={t('forms.province')}
                 value={candidate.province}
                 onChange={handleChange}
                 error={errors.province}
@@ -239,7 +242,7 @@ function CandidateForm() {
               />
               <JobFormField
                 name="country"
-                label="País"
+                label={t('forms.country')}
                 value={candidate.country}
                 onChange={handleChange}
                 error={errors.country}
@@ -249,11 +252,11 @@ function CandidateForm() {
 
             <Grid item xs={12} md={6}>
               <Typography variant="subtitle1" sx={{ mb: 1 }}>
-                Datos profesionales
+                {t('forms.professionalData')}
               </Typography>
               <JobFormField
                 name="currentPosition"
-                label="Puesto actual"
+                label={t('forms.currentPosition')}
                 value={candidate.currentPosition}
                 onChange={handleChange}
                 error={errors.currentPosition}
@@ -261,7 +264,7 @@ function CandidateForm() {
               />
               <JobFormField
                 name="seniority"
-                label="Seniority"
+                label={t('forms.seniority')}
                 value={candidate.seniority}
                 onChange={handleChange}
                 error={errors.seniority}
@@ -276,7 +279,7 @@ function CandidateForm() {
               </JobFormField>
               <JobFormField
                 name="expectedSalary"
-                label="Salario pretendido"
+                label={t('forms.expectedSalary')}
                 type="number"
                 value={candidate.expectedSalary}
                 onChange={handleChange}
@@ -285,7 +288,7 @@ function CandidateForm() {
               />
               <JobFormField
                 name="workMode"
-                label="Modalidad preferida"
+                label={t('forms.preferredWorkMode')}
                 value={candidate.workMode}
                 onChange={handleChange}
                 error={errors.workMode}
@@ -300,7 +303,7 @@ function CandidateForm() {
               </JobFormField>
               <JobFormField
                 name="availability"
-                label="Disponibilidad"
+                label={t('forms.availability')}
                 value={candidate.availability}
                 onChange={handleChange}
                 error={errors.availability}
@@ -317,18 +320,18 @@ function CandidateForm() {
 
             <Grid item xs={12} md={6}>
               <Typography variant="subtitle1" sx={{ mb: 1 }}>
-                Gestión de CV
+                {t('forms.cvManagement')}
               </Typography>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, flexWrap: 'wrap', mb: 2 }}>
                 <Button variant="outlined" component="label">
-                  {candidate.cvFileName ? 'Reemplazar CV' : 'Cargar CV'}
+                  {candidate.cvFileName ? t('forms.replaceCv') : t('forms.uploadCv')}
                   <input hidden accept=".pdf,.doc,.docx" type="file" onChange={handleFileChange} />
                 </Button>
                 {candidate.cvFileName ? (
                   <Typography variant="body2">{candidate.cvFileName}</Typography>
                 ) : (
                   <Typography color="text.secondary" variant="body2">
-                    Selecciona PDF o DOCX (máx. 5MB)
+                    {t('forms.uploadInstructions')}
                   </Typography>
                 )}
               </Box>
@@ -338,13 +341,13 @@ function CandidateForm() {
               {candidate.cvFileUrl && candidate.cvFileName && (
                 <Box sx={{ mt: 2 }}>
                   <Typography variant="subtitle2" sx={{ mb: 1 }}>
-                    Vista previa de CV
+                    {t('forms.cvPreviewTitle')}
                   </Typography>
                   {candidate.cvFileName?.toLowerCase().endsWith('.pdf') ? (
-                    <Box component="iframe" src={candidate.cvFileUrl} width="100%" height={260} title="Vista previa CV" sx={{ borderRadius: 2, border: '1px solid #e0e0e0' }} />
+                    <Box component="iframe" src={candidate.cvFileUrl} width="100%" height={260} title={t('forms.cvPreviewTitle')} sx={{ borderRadius: 2, border: '1px solid #e0e0e0' }} />
                   ) : (
                     <Typography variant="body2" color="text.secondary">
-                      El CV está cargado. Descarga el archivo para verlo.
+                      {t('forms.cvUploadedInstruction')}
                     </Typography>
                   )}
                   <Button
@@ -354,7 +357,7 @@ function CandidateForm() {
                     sx={{ mt: 1 }}
                     size="small"
                   >
-                    Descargar CV
+                    {t('forms.downloadCv')}
                   </Button>
                 </Box>
               )}
@@ -369,10 +372,10 @@ function CandidateForm() {
 
           <Stack direction="row" spacing={2} sx={{ mt: 3 }}>
             <Button type="submit" variant="contained" disabled={loading}>
-              {isEditMode ? 'Actualizar candidato' : 'Crear candidato'}
+              {isEditMode ? t('forms.updateCandidateButton') : t('forms.createCandidateButton')}
             </Button>
             <Button variant="outlined" onClick={() => navigate('/candidatos')}>
-              Cancelar
+              {t('forms.cancel')}
             </Button>
           </Stack>
         </Box>

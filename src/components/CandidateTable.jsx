@@ -2,21 +2,23 @@ import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, 
 import { Link as RouterLink } from 'react-router-dom';
 import CandidateStatusChip from './CandidateStatusChip';
 import { formatDate } from '../utils/formatters';
+import { useTranslation } from '../hooks/useTranslation';
 
 function CandidateTable({ candidates, sortField, sortDirection, onSort, loading }) {
+  const { t } = useTranslation();
   const columns = [
-    { label: 'Nombre', field: 'lastName' },
-    { label: 'DNI', field: 'dni' },
-    { label: 'Email', field: 'email' },
-    { label: 'Puesto', field: 'currentPosition' },
-    { label: 'Seniority', field: 'seniority' },
-    { label: 'Modalidad', field: 'workMode' },
-    { label: 'Estado', field: 'status' },
-    { label: 'Alta', field: 'createdAt' },
+    { label: t('candidateTable.name'), field: 'lastName' },
+    { label: t('candidateTable.dni'), field: 'dni' },
+    { label: t('candidateTable.email'), field: 'email' },
+    { label: t('candidateTable.position'), field: 'currentPosition' },
+    { label: t('candidateTable.seniority'), field: 'seniority' },
+    { label: t('candidateTable.modalities'), field: 'workMode' },
+    { label: t('candidateTable.status'), field: 'status' },
+    { label: t('candidateTable.joinedAt'), field: 'createdAt' },
   ];
 
   if (loading) {
-    return <Typography sx={{ color: 'var(--color-muted)' }}>Cargando candidatos...</Typography>;
+    return <Typography sx={{ color: 'var(--color-muted)' }}>{t('candidateList.loading')}</Typography>;
   }
 
   return (
@@ -60,7 +62,7 @@ function CandidateTable({ candidates, sortField, sortDirection, onSort, loading 
               <TableCell sx={{ color: 'var(--text-primary)', py: 1.5, px: 2 }}>{formatDate(candidate.createdAt)}</TableCell>
               <TableCell sx={{ py: 1.5, px: 2 }}>
                 <Button component={RouterLink} to={`/candidatos/${candidate.id}`} size="small" sx={{ color: 'var(--primary)', fontWeight: 700 }}>
-                  Ver
+                  {t('buttons.view')}
                 </Button>
               </TableCell>
             </TableRow>

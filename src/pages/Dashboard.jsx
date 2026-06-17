@@ -6,6 +6,7 @@ import { useJobs } from '../context/JobContext';
 import { useCandidates } from '../context/CandidateContext';
 import JobCard from '../components/JobCard';
 import CandidateCard from '../components/CandidateCard';
+import { useTranslation } from '../hooks/useTranslation';
 
 function Dashboard() {
   const { jobs, loading: jobsLoading } = useJobs();
@@ -47,55 +48,57 @@ function Dashboard() {
       .slice(0, 3);
   }, [candidates]);
 
+  const { t } = useTranslation();
+
   return (
     <Box>
       <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 3 }}>
         <Box>
           <Typography variant="h4" sx={{ fontWeight: 700, mb: 1 }}>
-            Bienvenido al panel de RR.HH.
+            {t('dashboard.welcomeTitle')}
           </Typography>
-          <Typography color="text.secondary">
-            Resumen de puestos, candidatos y oportunidades en tu pipeline.
+          <Typography sx={{ color: 'var(--text-secondary)' }}>
+            {t('dashboard.welcomeSubtitle')}
           </Typography>
         </Box>
         <Stack direction="row" spacing={2}>
           <Button component={RouterLink} to="/puestos" variant="contained">
-            Ver vacantes
+            {t('dashboard.viewJobs')}
           </Button>
           <Button component={RouterLink} to="/candidatos" variant="contained">
-            Ver candidatos
+            {t('dashboard.viewCandidates')}
           </Button>
         </Stack>
       </Stack>
 
       <Typography variant="h6" sx={{ fontWeight: 700, mb: 2 }}>
-        Resumen de vacantes
+        {t('dashboard.vacanciesSummary')}
       </Typography>
       <Grid container spacing={2}>
         <Grid item xs={12} md={3}>
-          <StatCard title="Total de puestos" value={jobsSummary.total} subtitle="Todas las búsquedas activas e inactivas." />
+          <StatCard title={t('dashboard.cards.totalJobs.title')} value={jobsSummary.total} subtitle={t('dashboard.cards.totalJobs.subtitle')} />
         </Grid>
         <Grid item xs={12} md={3}>
-          <StatCard title="Activos" value={jobsSummary.activos} subtitle="Puestos disponibles para publicar." />
+          <StatCard title={t('dashboard.cards.activeJobs.title')} value={jobsSummary.activos} subtitle={t('dashboard.cards.activeJobs.subtitle')} />
         </Grid>
         <Grid item xs={12} md={3}>
-          <StatCard title="Inactivos" value={jobsSummary.inactivos} subtitle="Puestos desactivados o cerrados." />
+          <StatCard title={t('dashboard.cards.inactiveJobs.title')} value={jobsSummary.inactivos} subtitle={t('dashboard.cards.inactiveJobs.subtitle')} />
         </Grid>
         <Grid item xs={12} md={3}>
-          <StatCard title="Remoto" value={jobsSummary.remoto} subtitle="Vacantes con modalidad remota." />
+          <StatCard title={t('dashboard.cards.remoteJobs.title')} value={jobsSummary.remoto} subtitle={t('dashboard.cards.remoteJobs.subtitle')} />
         </Grid>
       </Grid>
 
       <Paper elevation={0} sx={{ mt: 4, p: 3, borderRadius: 2 }}>
         <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 2 }}>
           <Typography variant="h6" sx={{ fontWeight: 700 }}>
-            Últimas vacantes publicadas
+            {t('dashboard.latestJobs')}
           </Typography>
-          <Typography color="text.secondary">Actualizado automáticamente</Typography>
+          <Typography color="text.secondary">{t('dashboard.autoUpdated')}</Typography>
         </Stack>
 
         {jobsLoading ? (
-          <Typography>Cargando vacantes...</Typography>
+          <Typography>{t('dashboard.loadingJobs')}</Typography>
         ) : (
           <Grid container spacing={2}>
             {recentJobs.map((job) => (
@@ -108,7 +111,7 @@ function Dashboard() {
       </Paper>
 
       <Typography variant="h6" sx={{ fontWeight: 700, mb: 2, mt: 5 }}>
-        Resumen de candidatos
+        {t('dashboard.candidatesSummary')}
       </Typography>
       <Grid container spacing={2}>
         <Grid item xs={12} md={3}>
@@ -128,13 +131,13 @@ function Dashboard() {
       <Paper elevation={0} sx={{ mt: 4, p: 3, borderRadius: 2 }}>
         <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 2 }}>
           <Typography variant="h6" sx={{ fontWeight: 700 }}>
-            Últimos candidatos registrados
+            {t('dashboard.latestCandidates')}
           </Typography>
-          <Typography color="text.secondary">Actualizado automáticamente</Typography>
+          <Typography color="text.secondary">{t('dashboard.autoUpdated')}</Typography>
         </Stack>
 
         {candidatesLoading ? (
-          <Typography>Cargando candidatos...</Typography>
+          <Typography>{t('dashboard.loadingCandidates')}</Typography>
         ) : (
           <Grid container spacing={2}>
             {recentCandidates.map((candidate) => (

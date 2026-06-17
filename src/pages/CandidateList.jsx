@@ -5,6 +5,7 @@ import { useCandidates } from '../context/CandidateContext';
 import CandidateTable from '../components/CandidateTable';
 import PaginationControls from '../components/PaginationControls';
 import { nationalities, seniorities, workModes, candidateStatuses } from '../utils/formatters';
+import { useTranslation } from '../hooks/useTranslation';
 
 function CandidateList() {
   const { candidates, filters, setFilters, loading } = useCandidates();
@@ -53,19 +54,21 @@ function CandidateList() {
     setFilters({ ...filters, page });
   };
 
+  const { t } = useTranslation();
+
   return (
     <Box>
       <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 3 }}>
         <Box>
           <Typography variant="h4" sx={{ fontWeight: 700, mb: 1 }}>
-            Gestión de candidatos
+            {t('candidateList.title')}
           </Typography>
           <Typography sx={{ color: 'var(--text-secondary)' }}>
-            Busca, filtra y revisa el estado de los candidatos en proceso.
+            {t('candidateList.subtitle')}
           </Typography>
         </Box>
         <Button component={RouterLink} to="/candidatos/nuevo" variant="contained">
-          Nuevo candidato
+          {t('candidateList.newCandidate')}
         </Button>
       </Stack>
 
@@ -73,7 +76,7 @@ function CandidateList() {
         <Grid container spacing={2}>
           <Grid item xs={12} md={4}>
             <TextField
-              label="Buscar por nombre, DNI, email o puesto"
+              label={t('filters.search')}
               value={filters.search}
               onChange={(event) => setFilters({ ...filters, search: event.target.value, page: 1 })}
               fullWidth
@@ -82,14 +85,14 @@ function CandidateList() {
           </Grid>
           <Grid item xs={12} md={2}>
             <TextField
-              label="Seniority"
+              label={t('filters.seniority')}
               value={filters.seniority}
               onChange={(event) => setFilters({ ...filters, seniority: event.target.value, page: 1 })}
               select
               fullWidth
               size="small"
             >
-              <MenuItem value="">Todos</MenuItem>
+              <MenuItem value="">{t('filters.all')}</MenuItem>
               {seniorities.map((option) => (
                 <MenuItem key={option} value={option}>
                   {option}
@@ -99,14 +102,14 @@ function CandidateList() {
           </Grid>
           <Grid item xs={12} md={2}>
             <TextField
-              label="Modalidad"
+              label={t('filters.modalities')}
               value={filters.workMode}
               onChange={(event) => setFilters({ ...filters, workMode: event.target.value, page: 1 })}
               select
               fullWidth
               size="small"
             >
-              <MenuItem value="">Todas</MenuItem>
+              <MenuItem value="">{t('filters.allModalities')}</MenuItem>
               {workModes.map((option) => (
                 <MenuItem key={option} value={option}>
                   {option}
@@ -116,14 +119,14 @@ function CandidateList() {
           </Grid>
           <Grid item xs={12} md={2}>
             <TextField
-              label="Estado"
+              label={t('filters.status')}
               value={filters.status}
               onChange={(event) => setFilters({ ...filters, status: event.target.value, page: 1 })}
               select
               fullWidth
               size="small"
             >
-              <MenuItem value="">Todos</MenuItem>
+              <MenuItem value="">{t('filters.all')}</MenuItem>
               {candidateStatuses.map((option) => (
                 <MenuItem key={option} value={option}>
                   {option}
@@ -133,14 +136,14 @@ function CandidateList() {
           </Grid>
           <Grid item xs={12} md={2}>
             <TextField
-              label="Nacionalidad"
+              label={t('filters.nationality')}
               value={filters.nationality || ''}
               onChange={(event) => setFilters({ ...filters, nationality: event.target.value, page: 1 })}
               select
               fullWidth
               size="small"
             >
-              <MenuItem value="">Todas</MenuItem>
+              <MenuItem value="">{t('filters.all')}</MenuItem>
               {nationalities.map((option) => (
                 <MenuItem key={option} value={option}>
                   {option}
@@ -162,7 +165,7 @@ function CandidateList() {
 
         {filteredCandidates.length === 0 && !loading ? (
           <Typography color="text.secondary" sx={{ mt: 3 }}>
-            No hay candidatos que coincidan con los filtros. Ajusta la búsqueda o crea un nuevo candidato.
+            {t('candidateList.empty')}
           </Typography>
         ) : null}
 

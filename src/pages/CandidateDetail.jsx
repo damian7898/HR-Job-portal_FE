@@ -18,6 +18,7 @@ import {
 import { useCandidates } from '../context/CandidateContext';
 import CandidateStatusChip from '../components/CandidateStatusChip';
 import { candidateStatuses, formatDate } from '../utils/formatters';
+import { useTranslation } from '../hooks/useTranslation';
 
 function CandidateDetail() {
   const { id } = useParams();
@@ -37,6 +38,8 @@ function CandidateDetail() {
       .catch((err) => setError(err.message));
   }, [id, candidates, getCandidateById]);
 
+  const { t } = useTranslation();
+
   const handleStatusChange = async (event) => {
     if (!candidate) return;
     const nextStatus = event.target.value;
@@ -49,7 +52,7 @@ function CandidateDetail() {
   };
 
   if (loading && !candidate) {
-    return <Typography>Cargando candidato...</Typography>;
+    return <Typography>{t('candidateDetail.loading')}</Typography>;
   }
 
   if (error) {
@@ -57,7 +60,7 @@ function CandidateDetail() {
   }
 
   if (!candidate) {
-    return <Typography>No se encontró el candidato solicitado.</Typography>;
+    return <Typography>{t('candidateDetail.notFound')}</Typography>;
   }
 
   return (
@@ -67,11 +70,11 @@ function CandidateDetail() {
           <Typography variant="h4" sx={{ fontWeight: 700, mb: 1 }}>
             {candidate.firstName} {candidate.lastName}
           </Typography>
-          <Typography color="text.secondary">Detalle completo del candidato y su CV.</Typography>
+          <Typography color="text.secondary">{t('candidateDetail.subtitle')}</Typography>
         </Box>
         <Stack direction="row" spacing={1} alignItems="center">
           <Button variant="outlined" onClick={() => navigate(`/candidatos/${candidate.id}/editar`)}>
-            Editar
+            {t('candidateDetail.edit')}
           </Button>
           <CandidateStatusChip status={candidate.status} />
         </Stack>
@@ -81,49 +84,49 @@ function CandidateDetail() {
         <Grid container spacing={3}>
           <Grid item xs={12} md={6}>
             <Typography variant="subtitle2" color="text.secondary" sx={{ mb: 1 }}>
-              Información personal
+              {t('candidateDetail.personalInfo')}
             </Typography>
-            <Typography>Nombre: {candidate.firstName} {candidate.lastName}</Typography>
-            <Typography>DNI: {candidate.dni}</Typography>
-            <Typography>Fecha de nacimiento: {formatDate(candidate.birthDate)}</Typography>
-            <Typography>Género: {candidate.gender}</Typography>
-            <Typography>Nacionalidad: {candidate.nationality}</Typography>
+            <Typography>{t('candidateDetail.name')}: {candidate.firstName} {candidate.lastName}</Typography>
+            <Typography>{t('candidateDetail.dni')}: {candidate.dni}</Typography>
+            <Typography>{t('candidateDetail.birthDate')}: {formatDate(candidate.birthDate)}</Typography>
+            <Typography>{t('candidateDetail.gender')}: {candidate.gender}</Typography>
+            <Typography>{t('candidateDetail.nationality')}: {candidate.nationality}</Typography>
           </Grid>
           <Grid item xs={12} md={6}>
             <Typography variant="subtitle2" color="text.secondary" sx={{ mb: 1 }}>
-              Información de contacto
+              {t('candidateDetail.contactInfo')}
             </Typography>
-            <Typography>Email: {candidate.email}</Typography>
-            <Typography>Teléfono: {candidate.phone}</Typography>
-            <Typography>Dirección: {candidate.address}</Typography>
-            <Typography>Ciudad: {candidate.city}</Typography>
-            <Typography>Provincia: {candidate.province}</Typography>
-            <Typography>País: {candidate.country}</Typography>
-          </Grid>
-
-          <Grid item xs={12} md={6}>
-            <Typography variant="subtitle2" color="text.secondary" sx={{ mb: 1 }}>
-              Información profesional
-            </Typography>
-            <Typography>Puesto actual: {candidate.currentPosition}</Typography>
-            <Typography>Seniority: {candidate.seniority}</Typography>
-            <Typography>Salario pretendido: {candidate.expectedSalary.toLocaleString('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 })}</Typography>
-            <Typography>Modalidad: {candidate.workMode}</Typography>
-            <Typography>Disponibilidad: {candidate.availability}</Typography>
-            <Typography>LinkedIn: {candidate.linkedinUrl || 'No disponible'}</Typography>
-            <Typography>Portfolio: {candidate.portfolioUrl || 'No disponible'}</Typography>
+            <Typography>{t('candidateDetail.email')}: {candidate.email}</Typography>
+            <Typography>{t('candidateDetail.phone')}: {candidate.phone}</Typography>
+            <Typography>{t('candidateDetail.address')}: {candidate.address}</Typography>
+            <Typography>{t('candidateDetail.city')}: {candidate.city}</Typography>
+            <Typography>{t('candidateDetail.province')}: {candidate.province}</Typography>
+            <Typography>{t('candidateDetail.country')}: {candidate.country}</Typography>
           </Grid>
 
           <Grid item xs={12} md={6}>
             <Typography variant="subtitle2" color="text.secondary" sx={{ mb: 1 }}>
-              Estado del candidato
+              {t('candidateDetail.professionalInfo')}
+            </Typography>
+            <Typography>{t('candidateDetail.currentPosition')}: {candidate.currentPosition}</Typography>
+            <Typography>{t('candidateDetail.seniority')}: {candidate.seniority}</Typography>
+            <Typography>{t('candidateDetail.expectedSalary')}: {candidate.expectedSalary.toLocaleString('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 })}</Typography>
+            <Typography>{t('candidateDetail.workMode')}: {candidate.workMode}</Typography>
+            <Typography>{t('candidateDetail.availability')}: {candidate.availability}</Typography>
+            <Typography>{t('candidateDetail.linkedin')}: {candidate.linkedinUrl || t('candidateDetail.notAvailable')}</Typography>
+            <Typography>{t('candidateDetail.portfolio')}: {candidate.portfolioUrl || t('candidateDetail.notAvailable')}</Typography>
+          </Grid>
+
+          <Grid item xs={12} md={6}>
+            <Typography variant="subtitle2" color="text.secondary" sx={{ mb: 1 }}>
+              {t('candidateDetail.candidateStatus')}
             </Typography>
             <FormControl fullWidth size="small">
-              <InputLabel id="status-select-label">Estado</InputLabel>
+              <InputLabel id="status-select-label">{t('candidateDetail.status')}</InputLabel>
               <Select
                 labelId="status-select-label"
                 value={candidate.status}
-                label="Estado"
+                label={t('candidateDetail.status')}
                 onChange={handleStatusChange}
               >
                 {candidateStatuses.map((statusOption) => (
@@ -136,24 +139,24 @@ function CandidateDetail() {
 
             <Box sx={{ mt: 3 }}>
               <Typography variant="subtitle2" color="text.secondary" sx={{ mb: 1 }}>
-                CV adjunto
+                {t('candidateDetail.cvAttached')}
               </Typography>
               {candidate.cvFileUrl ? (
                 <>
                   <Button href={candidate.cvFileUrl} target="_blank" rel="noreferrer" size="small">
-                    Descargar CV
+                    {t('candidateDetail.downloadCv')}
                   </Button>
                   {candidate.cvFileName?.toLowerCase().endsWith('.pdf') ? (
-                    <Box component="iframe" src={candidate.cvFileUrl} width="100%" height={280} title="CV del candidato" sx={{ mt: 2, borderRadius: 2, border: '1px solid #e0e0e0' }} />
+                    <Box component="iframe" src={candidate.cvFileUrl} width="100%" height={280} title={t('candidateDetail.cvPreviewTitle')} sx={{ mt: 2, borderRadius: 2, border: '1px solid #e0e0e0' }} />
                   ) : (
                     <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
-                      Se trata de un archivo DOCX. Descarga para visualizarlo.
+                      {t('candidateDetail.noCv')}
                     </Typography>
                   )}
                 </>
               ) : (
                 <Typography variant="body2" color="text.secondary">
-                  No se ha cargado un CV para este candidato.
+                  {t('candidateDetail.noCv')}
                 </Typography>
               )}
             </Box>
@@ -162,8 +165,8 @@ function CandidateDetail() {
           <Grid item xs={12}>
             <Divider sx={{ my: 2 }} />
             <Stack direction={{ xs: 'column', sm: 'row' }} spacing={3}>
-              <Typography>Fecha de alta: {formatDate(candidate.createdAt)}</Typography>
-              <Typography>Última actualización: {formatDate(candidate.updatedAt)}</Typography>
+              <Typography>{t('candidateDetail.createdAt')} {formatDate(candidate.createdAt)}</Typography>
+              <Typography>{t('candidateDetail.updatedAt')} {formatDate(candidate.updatedAt)}</Typography>
             </Stack>
           </Grid>
         </Grid>

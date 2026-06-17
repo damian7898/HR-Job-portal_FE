@@ -1,7 +1,10 @@
 import { Box, Grid, MenuItem, TextField } from '@mui/material';
 import { areas, modalidades, seniorities } from '../utils/formatters';
+import { useTranslation } from '../hooks/useTranslation';
 
 function FilterBar({ filters, onChange }) {
+  const { t } = useTranslation();
+
   const fieldStyles = {
     '& .MuiInputLabel-root': { color: 'var(--text-secondary)' },
     '& .MuiOutlinedInput-root': {
@@ -18,7 +21,7 @@ function FilterBar({ filters, onChange }) {
       <Grid container spacing={2}>
         <Grid item xs={12} md={4}>
           <TextField
-            label="Buscar por palabra clave"
+            label={t('filters.search')}
             value={filters.search}
             onChange={(event) => onChange({ ...filters, search: event.target.value, page: 1 })}
             fullWidth
@@ -29,7 +32,7 @@ function FilterBar({ filters, onChange }) {
         </Grid>
         <Grid item xs={12} md={2}>
           <TextField
-            label="Área"
+            label={t('filters.area')}
             value={filters.area}
             onChange={(event) => onChange({ ...filters, area: event.target.value, page: 1 })}
             select
@@ -38,7 +41,7 @@ function FilterBar({ filters, onChange }) {
             variant="outlined"
             sx={fieldStyles}
           >
-            <MenuItem value="">Todos</MenuItem>
+            <MenuItem value="">{t('filters.all')}</MenuItem>
             {areas.map((item) => (
               <MenuItem key={item} value={item}>
                 {item}
@@ -48,7 +51,7 @@ function FilterBar({ filters, onChange }) {
         </Grid>
         <Grid item xs={12} md={2}>
           <TextField
-            label="Modalidad"
+            label={t('filters.modalities')}
             value={filters.modalidad}
             onChange={(event) => onChange({ ...filters, modalidad: event.target.value, page: 1 })}
             select
@@ -57,7 +60,7 @@ function FilterBar({ filters, onChange }) {
             variant="outlined"
             sx={fieldStyles}
           >
-            <MenuItem value="">Todas</MenuItem>
+            <MenuItem value="">{t('filters.allModalities')}</MenuItem>
             {modalidades.map((item) => (
               <MenuItem key={item} value={item}>
                 {item}
@@ -67,7 +70,7 @@ function FilterBar({ filters, onChange }) {
         </Grid>
         <Grid item xs={12} md={2}>
           <TextField
-            label="Seniority"
+            label={t('filters.seniority')}
             value={filters.seniority}
             onChange={(event) => onChange({ ...filters, seniority: event.target.value, page: 1 })}
             select
@@ -86,7 +89,7 @@ function FilterBar({ filters, onChange }) {
         </Grid>
         <Grid item xs={12} md={2}>
           <TextField
-            label="Ordenar por fecha"
+            label={t('filters.dateOrder')}
             value={filters.sort}
             onChange={(event) => onChange({ ...filters, sort: event.target.value, page: 1 })}
             select
@@ -95,8 +98,8 @@ function FilterBar({ filters, onChange }) {
             variant="outlined"
             sx={fieldStyles}
           >
-            <MenuItem value="desc">Más recientes</MenuItem>
-            <MenuItem value="asc">Más antiguos</MenuItem>
+            <MenuItem value="desc">{t('filters.newest')}</MenuItem>
+            <MenuItem value="asc">{t('filters.oldest')}</MenuItem>
           </TextField>
         </Grid>
       </Grid>

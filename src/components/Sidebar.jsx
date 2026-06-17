@@ -2,17 +2,21 @@ import { Box, Divider, List, ListItemButton, ListItemIcon, ListItemText, Typogra
 import { useState, useEffect } from 'react';
 import WorkOutlineIcon from '@mui/icons-material/WorkOutline';
 import DashboardIcon from '@mui/icons-material/Dashboard';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import SettingsIcon from '@mui/icons-material/Settings';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import { NavLink } from 'react-router-dom';
+import { useTranslation } from '../hooks/useTranslation';
 
 function Sidebar() {
+  const { t } = useTranslation();
+
   const menu = [
-    { label: 'Dashboard', path: '/', icon: <DashboardIcon /> },
-    { label: 'Vacantes', path: '/puestos', icon: <WorkOutlineIcon /> },
-    { label: 'Candidatos', path: '/candidatos', icon: <PeopleAltIcon /> },
+    { label: t('menu.dashboard'), path: '/', icon: <DashboardIcon /> },
+    { label: t('menu.vacancies'), path: '/puestos', icon: <WorkOutlineIcon /> },
+    { label: t('menu.candidates'), path: '/candidatos', icon: <PeopleAltIcon /> },
+    { label: t('menu.settings'), path: '/settings', icon: <SettingsIcon /> },
   ];
 
   const [isDark, setIsDark] = useState(() => {

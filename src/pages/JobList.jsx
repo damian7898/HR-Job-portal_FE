@@ -5,6 +5,7 @@ import { useJobs } from '../context/JobContext';
 import FilterBar from '../components/FilterBar';
 import JobCard from '../components/JobCard';
 import PaginationControls from '../components/PaginationControls';
+import { useTranslation } from '../hooks/useTranslation';
 
 function JobList() {
   const { jobs, filters, setFilters, loading } = useJobs();
@@ -33,19 +34,21 @@ function JobList() {
     setFilters({ ...filters, page });
   };
 
+  const { t } = useTranslation();
+
   return (
     <Box>
       <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 3 }}>
         <Box>
           <Typography variant="h4" sx={{ fontWeight: 700, mb: 1 }}>
-            Buscador de vacantes
+            {t('jobList.title')}
           </Typography>
           <Typography sx={{ color: 'var(--text-secondary)' }}>
-            Encuentra las oportunidades más relevantes por área, modalidad y seniority.
+            {t('jobList.subtitle')}
           </Typography>
         </Box>
         <Button component={RouterLink} to="/puestos/nuevo" variant="contained">
-          Publicar puesto
+          {t('jobList.publishJob')}
         </Button>
       </Stack>
 
@@ -53,11 +56,11 @@ function JobList() {
         <FilterBar filters={filters} onChange={setFilters} />
 
         {loading ? (
-          <Typography>Cargando vacantes...</Typography>
+          <Typography>{t('jobList.loading')}</Typography>
         ) : (
           <>
             <Typography variant="subtitle1" sx={{ mb: 2 }}>
-              {filteredJobs.length} vacante(s) disponibles
+              {t('jobList.resultsCount', `${filteredJobs.length} vacante(s) disponibles`).replace('{count}', filteredJobs.length)}
             </Typography>
             <Grid container spacing={2}>
               {paginatedJobs.map((job) => (
@@ -68,7 +71,7 @@ function JobList() {
             </Grid>
             {filteredJobs.length === 0 && (
               <Typography variant="body1" color="text.secondary" sx={{ mt: 3 }}>
-                No se encontraron resultados con esos filtros. Ajusta tu búsqueda y vuelve a intentar.
+                {t('jobList.empty')}
               </Typography>
             )}
             <PaginationControls currentPage={filters.page} totalPages={totalPages} onChange={handlePageChange} />

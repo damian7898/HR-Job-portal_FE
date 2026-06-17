@@ -1,7 +1,10 @@
 import { AppBar, Box, Toolbar, Typography, Button } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
+import { useTranslation } from '../hooks/useTranslation';
 
 function Topbar({ drawerWidth }) {
+  const { t } = useTranslation();
+
   return (
     <AppBar
       position="fixed"
@@ -17,10 +20,10 @@ function Topbar({ drawerWidth }) {
       <Toolbar sx={{ justifyContent: 'space-between', gap: 2 }}>
         <Box>
           <Typography variant="h6" component="div" sx={{ fontWeight: 700 }}>
-            Portal de Talent Acquisition
+            {t('topbar.title')}
           </Typography>
           <Typography variant="body2" sx={{ color: 'var(--text-secondary)' }}>
-            Gestión de puestos y visualización de vacantes.
+            {t('topbar.subtitle')}
           </Typography>
         </Box>
         <Button
@@ -34,7 +37,7 @@ function Topbar({ drawerWidth }) {
             '&:hover': { backgroundColor: 'var(--button-primary-hover)' },
           }}
         >
-          Nuevo puesto
+          {t('topbar.newJob')}
         </Button>
       </Toolbar>
     </AppBar>

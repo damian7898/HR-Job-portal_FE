@@ -1,8 +1,11 @@
 import { Card, CardActions, CardContent, Chip, Stack, Typography, Button } from '@mui/material';
 import { formatDate } from '../utils/formatters';
 import { Link as RouterLink } from 'react-router-dom';
+import { useTranslation } from '../hooks/useTranslation';
 
 function JobCard({ job }) {
+  const { t } = useTranslation();
+
   return (
     <Card
       variant="outlined"
@@ -45,7 +48,7 @@ function JobCard({ job }) {
       </CardContent>
       <CardActions sx={{ p: 3, pt: 0 }}>
         <Button component={RouterLink} to={`/puestos/${job.id}`} size="small" sx={{ color: 'var(--primary)', fontWeight: 700 }}>
-          Ver detalle
+          {t('buttons.view')}
         </Button>
       </CardActions>
     </Card>

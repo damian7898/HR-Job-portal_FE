@@ -7,6 +7,7 @@ import JobForm from '../pages/JobForm';
 import CandidateList from '../pages/CandidateList';
 import CandidateForm from '../pages/CandidateForm';
 import CandidateDetail from '../pages/CandidateDetail';
+import Settings from '../pages/Settings';
 
 function AppRoutes() {
   return (
@@ -21,6 +22,7 @@ function AppRoutes() {
         <Route path="candidatos/nuevo" element={<CandidateForm />} />
         <Route path="candidatos/:id/editar" element={<CandidateForm />} />
         <Route path="candidatos/:id" element={<CandidateDetail />} />
+        <Route path="settings" element={<Settings />} />
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>

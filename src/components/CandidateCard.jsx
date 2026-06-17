@@ -2,8 +2,11 @@ import { Card, CardActions, CardContent, Chip, Stack, Typography, Button } from 
 import { formatDate } from '../utils/formatters';
 import { Link as RouterLink } from 'react-router-dom';
 import CandidateStatusChip from './CandidateStatusChip';
+import { useTranslation } from '../hooks/useTranslation';
 
 function CandidateCard({ candidate }) {
+  const { t } = useTranslation();
+
   return (
     <Card
       variant="outlined"
@@ -32,13 +35,13 @@ function CandidateCard({ candidate }) {
           {candidate.city}, {candidate.country}
         </Typography>
         <Stack direction="row" spacing={1} flexWrap="wrap" sx={{ mb: 2 }}>
-          <Chip label={`Alta: ${formatDate(candidate.createdAt)}`} size="small" sx={{ borderRadius: 1, backgroundColor: 'var(--bg-muted)', color: 'var(--text-secondary)' }} />
+          <Chip label={`${t('candidateCard.hiredAt')} ${formatDate(candidate.createdAt)}`} size="small" sx={{ borderRadius: 1, backgroundColor: 'var(--bg-muted)', color: 'var(--text-secondary)' }} />
           <Chip label={candidate.dni} size="small" sx={{ borderRadius: 1, backgroundColor: 'var(--bg-muted)', color: 'var(--text-secondary)' }} />
         </Stack>
       </CardContent>
       <CardActions sx={{ p: 3, pt: 0 }}>
         <Button component={RouterLink} to={`/candidatos/${candidate.id}`} size="small" sx={{ color: 'var(--primary)', fontWeight: 700 }}>
-          Ver detalle
+          {t('buttons.view')}
         </Button>
       </CardActions>
     </Card>

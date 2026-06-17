@@ -5,6 +5,7 @@ import { areas, modalidades, seniorities } from '../utils/formatters';
 import { createEmptyJob } from '../models/jobPosition';
 import { useJobs } from '../context/JobContext';
 import JobFormField from '../components/JobFormField';
+import { useTranslation } from '../hooks/useTranslation';
 
 function JobForm() {
   const { id } = useParams();
@@ -41,16 +42,16 @@ function JobForm() {
   const validateForm = () => {
     const nextErrors = {};
 
-    if (!job.titulo) nextErrors.titulo = 'El título es requerido.';
-    if (!job.area) nextErrors.area = 'El área es requerida.';
-    if (!job.modalidad) nextErrors.modalidad = 'La modalidad es requerida.';
-    if (!job.seniority) nextErrors.seniority = 'El seniority es requerido.';
-    if (!job.descripcion) nextErrors.descripcion = 'La descripción es requerida.';
-    if (!job.ubicacion) nextErrors.ubicacion = 'La ubicación es requerida.';
-    if (job.salarioMinimo <= 0) nextErrors.salarioMinimo = 'El salario mínimo debe ser mayor a 0.';
-    if (job.salarioMaximo <= 0) nextErrors.salarioMaximo = 'El salario máximo debe ser mayor a 0.';
-    if (job.salarioMaximo < job.salarioMinimo) nextErrors.salarioMaximo = 'El salario máximo debe ser mayor o igual al mínimo.';
-    if (!job.requisitos || job.requisitos.length === 0) nextErrors.requisitos = 'Incluye al menos un requisito.';
+    if (!job.titulo) nextErrors.titulo = t('errors.jobTitleRequired');
+    if (!job.area) nextErrors.area = t('errors.jobAreaRequired');
+    if (!job.modalidad) nextErrors.modalidad = t('errors.jobModalityRequired');
+    if (!job.seniority) nextErrors.seniority = t('errors.jobSeniorityRequired');
+    if (!job.descripcion) nextErrors.descripcion = t('errors.jobDescriptionRequired');
+    if (!job.ubicacion) nextErrors.ubicacion = t('errors.jobLocationRequired');
+    if (job.salarioMinimo <= 0) nextErrors.salarioMinimo = t('errors.minSalaryInvalid');
+    if (job.salarioMaximo <= 0) nextErrors.salarioMaximo = t('errors.maxSalaryInvalid');
+    if (job.salarioMaximo < job.salarioMinimo) nextErrors.salarioMaximo = t('errors.maxSalaryLessThanMin');
+    if (!job.requisitos || job.requisitos.length === 0) nextErrors.requisitos = t('errors.requirementsRequired');
 
     setErrors(nextErrors);
     return Object.keys(nextErrors).length === 0;
@@ -72,11 +73,13 @@ function JobForm() {
       }
       navigate('/puestos');
     } catch (err) {
-      setGlobalError(err.message || 'Error al guardar el puesto');
+      setGlobalError(err.message || t('errors.saveJobFailed'));
     }
   };
 
   const requisitosText = useMemo(() => job.requisitos.join('\n'), [job.requisitos]);
+
+  const { t } = useTranslation();
 
   return (
     <Card variant="outlined" sx={{ borderRadius: 2, p: 0 }}>
@@ -84,10 +87,10 @@ function JobForm() {
         <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 3 }}>
           <Box>
             <Typography variant="h4" sx={{ fontWeight: 700, mb: 1 }}>
-              {isEditMode ? 'Actualizar puesto laboral' : 'Nueva vacante laboral'}
+              {isEditMode ? t('forms.updateJob') : t('forms.newJob')}
             </Typography>
             <Typography color="text.secondary">
-              Completa los campos para publicar o actualizar un puesto.
+              {t('forms.jobSubtitle')}
             </Typography>
           </Box>
         </Stack>
@@ -97,7 +100,7 @@ function JobForm() {
             <Grid item xs={12} md={6}>
               <JobFormField
                 name="titulo"
-                label="Título"
+                label={t('forms.title')}
                 value={job.titulo}
                 onChange={handleChange}
                 error={errors.titulo}
@@ -107,7 +110,7 @@ function JobForm() {
             <Grid item xs={12} md={6}>
               <JobFormField
                 name="area"
-                label="Área"
+                label={t('forms.area')}
                 value={job.area}
                 onChange={handleChange}
                 error={errors.area}
@@ -124,7 +127,7 @@ function JobForm() {
             <Grid item xs={12} md={4}>
               <JobFormField
                 name="modalidad"
-                label="Modalidad"
+                label={t('forms.modality')}
                 value={job.modalidad}
                 onChange={handleChange}
                 error={errors.modalidad}
@@ -141,7 +144,7 @@ function JobForm() {
             <Grid item xs={12} md={4}>
               <JobFormField
                 name="seniority"
-                label="Seniority"
+                label={t('forms.seniority')}
                 value={job.seniority}
                 onChange={handleChange}
                 error={errors.seniority}
@@ -158,7 +161,7 @@ function JobForm() {
             <Grid item xs={12} md={4}>
               <JobFormField
                 name="ubicacion"
-                label="Ubicación"
+                label={t('forms.location')}
                 value={job.ubicacion}
                 onChange={handleChange}
                 error={errors.ubicacion}
@@ -168,7 +171,7 @@ function JobForm() {
             <Grid item xs={12} md={6}>
               <JobFormField
                 name="salarioMinimo"
-                label="Salario mínimo"
+                label={t('forms.minSalary')}
                 type="number"
                 value={job.salarioMinimo}
                 onChange={handleChange}
@@ -179,7 +182,7 @@ function JobForm() {
             <Grid item xs={12} md={6}>
               <JobFormField
                 name="salarioMaximo"
-                label="Salario máximo"
+                label={t('forms.maxSalary')}
                 type="number"
                 value={job.salarioMaximo}
                 onChange={handleChange}
@@ -190,7 +193,7 @@ function JobForm() {
             <Grid item xs={12}>
               <JobFormField
                 name="descripcion"
-                label="Descripción"
+                label={t('forms.description')}
                 value={job.descripcion}
                 onChange={handleChange}
                 error={errors.descripcion}
@@ -202,7 +205,7 @@ function JobForm() {
             <Grid item xs={12}>
               <JobFormField
                 name="requisitos"
-                label="Requisitos (una línea por requisito)"
+                label={t('forms.requirements')}
                 value={requisitosText}
                 onChange={handleRequisitosChange}
                 error={errors.requisitos}
@@ -221,10 +224,10 @@ function JobForm() {
 
           <Stack direction="row" spacing={2} sx={{ mt: 3 }}>
             <Button type="submit" variant="contained" disabled={loading}>
-              {isEditMode ? 'Actualizar puesto' : 'Crear puesto'}
+              {isEditMode ? t('forms.updateJobButton') : t('forms.createJobButton')}
             </Button>
             <Button variant="outlined" onClick={() => navigate('/puestos')}>
-              Cancelar
+              {t('forms.cancel')}
             </Button>
           </Stack>
         </Box>
